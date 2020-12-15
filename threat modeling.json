@@ -1,0 +1,1582 @@
+{
+  "summary": {
+    "title": "Threat Model",
+    "owner": "Lyy",
+    "description": "A sample model of a web application, online payment.",
+    "id": 0
+  },
+  "detail": {
+    "contributors": [],
+    "diagrams": [
+      {
+        "title": "支付数据流图",
+        "thumbnail": "./public/content/images/thumbnail.stride.jpg",
+        "id": 0,
+        "diagramJson": {
+          "cells": [
+            {
+              "type": "tm.Store",
+              "size": {
+                "width": 160,
+                "height": 80
+              },
+              "position": {
+                "x": 518,
+                "y": 434
+              },
+              "angle": 0,
+              "id": "a25bbb4e-093f-4238-a620-31efdee452dc",
+              "z": 1,
+              "threats": [
+                {
+                  "status": "Open",
+                  "severity": "High",
+                  "mitigation": "· 在配置文件中加密数据库凭据。\n· 定期过期并替换数据库凭据。",
+                  "description": "后台工作人员配置并存储工作人员访问数据库所使用的凭据，攻击者可以攻击后台工作人员并访问数据库凭据",
+                  "title": "非法访问数据库凭证",
+                  "type": "Information disclosure",
+                  "$$hashKey": "object:546"
+                }
+              ],
+              "storesCredentials": true,
+              "hasOpenThreats": true,
+              "attrs": {
+                ".element-shape": {
+                  "class": "element-shape hasOpenThreats isInScope"
+                },
+                "text": {
+                  "text": "9.0 用户配置"
+                },
+                ".undefined": {
+                  "class": "undefinedhasOpenThreats isInScope"
+                },
+                ".element-text": {
+                  "class": "element-text hasOpenThreats isInScope"
+                }
+              }
+            },
+            {
+              "type": "tm.Store",
+              "size": {
+                "width": 160,
+                "height": 80
+              },
+              "position": {
+                "x": 83,
+                "y": 409
+              },
+              "angle": 0,
+              "id": "936557f9-22e2-4bac-bb70-0089c5c2fbe1",
+              "z": 2,
+              "isALog": true,
+              "threats": [
+                {
+                  "status": "Open",
+                  "severity": "High",
+                  "description": "SQL注入是一种攻击，它将恶意代码插入到字符串中，然后传递给SQL Server实例进行解析和执行。SQL注入的主要形式是将代码直接插入到用户输入变量中，这些变量与SQL命令连接并执行。不那么直接的攻击则将恶意代码注入到存储在表中或作为元数据的字符串中。当存储的字符串随后连接到一个动态SQL命令时，将执行恶意代码。",
+                  "title": "攻击者可以通过执行SQL注入获得对用户信息的访问权",
+                  "type": "Information disclosure",
+                  "mitigation": "要求所有查询都经过身份验证，确保在SQL Server上启用了登录审核。",
+                  "$$hashKey": "object:1782"
+                }
+              ],
+              "outOfScope": false,
+              "hasOpenThreats": true,
+              "attrs": {
+                ".element-shape": {
+                  "class": "element-shape hasOpenThreats isInScope"
+                },
+                "text": {
+                  "text": "8.0 用户信息数据库"
+                },
+                "#element-shape": {
+                  "class": ""
+                },
+                ".undefined": {
+                  "class": "undefinedhasOpenThreats isInScope"
+                },
+                ".element-text": {
+                  "class": "element-text hasOpenThreats isInScope"
+                }
+              }
+            },
+            {
+              "type": "tm.Store",
+              "size": {
+                "width": 160,
+                "height": 80
+              },
+              "position": {
+                "x": 717,
+                "y": 1
+              },
+              "angle": 0,
+              "id": "bdd3e115-4b92-4020-90b7-c3351dba292b",
+              "z": 3,
+              "threats": [
+                {
+                  "status": "Open",
+                  "severity": "High",
+                  "title": "非法访问系统配置凭证",
+                  "type": "Information disclosure",
+                  "description": "Web应用程序配置存储Web应用程序用于访问消息队列的凭据，它们可能被攻击者窃取，用于读取机密数据或在队列上放置有害消息",
+                  "mitigation": "应该对支付系统消息队列凭据进行加密",
+                  "$$hashKey": "object:1460"
+                }
+              ],
+              "storesCredentials": true,
+              "hasOpenThreats": true,
+              "outOfScope": false,
+              "attrs": {
+                ".element-shape": {
+                  "class": "element-shape hasOpenThreats isInScope"
+                },
+                "text": {
+                  "text": "11.0 支付系统配置"
+                },
+                ".undefined": {
+                  "class": "undefinedhasOpenThreats isInScope"
+                },
+                ".element-text": {
+                  "class": "element-text hasOpenThreats isInScope"
+                }
+              }
+            },
+            {
+              "type": "tm.Store",
+              "size": {
+                "width": 160,
+                "height": 80
+              },
+              "position": {
+                "x": 366,
+                "y": 290
+              },
+              "angle": 0,
+              "id": "ec574fb4-87e7-494b-88dc-2a3c99172067",
+              "z": 4,
+              "threats": [
+                {
+                  "status": "Open",
+                  "severity": "Low",
+                  "title": "读取请求信息",
+                  "type": "Information disclosure",
+                  "description": "Web应用程序和后台管理员之间的数据流不是点对点的，因此在传输层不能提供端到端保密。消息可以被攻击者在消息队列中读取。",
+                  "mitigation": "对消息中的高敏感性数据(例如安全令牌)使用消息级加密",
+                  "$$hashKey": "object:830"
+                },
+                {
+                  "status": "Open",
+                  "severity": "Medium",
+                  "title": "攻击者篡改请求信息",
+                  "type": "Tampering",
+                  "description": "队列上的消息可能会被篡改，从而导致后台工作人员进行不正确的处理",
+                  "mitigation": "· 对Web服务器上的所有队列消息添加数字签名。在后台工作人员验证消息签名并拒绝任何缺少或无效签名的消息。\n· 记录任何失败的消息。",
+                  "$$hashKey": "object:1201"
+                },
+                {
+                  "status": "Mitigated",
+                  "severity": "High",
+                  "title": "攻击者可能放置假消息在队列中",
+                  "type": "Tampering",
+                  "description": "攻击者可能会在队列中放置假消息，导致后台工作人员进行不正确的处理",
+                  "mitigation": "· 将对队列的访问限制为Web服务器和后台工作人员的IP地址\n· 在队列端点上实现身份验证",
+                  "$$hashKey": "object:1195"
+                },
+                {
+                  "status": "Open",
+                  "severity": "Medium",
+                  "modelType": "STRIDE",
+                  "type": "Tampering",
+                  "title": "攻击者破坏请求信息",
+                  "description": "攻击者可能利用缺乏入侵检测和异常数据库活动的阻止，破坏用户的请求信息，使用户无法与服务器交互",
+                  "$$hashKey": "object:1154",
+                  "mitigation": "· 启用威胁检测\n· 配置防火墙"
+                }
+              ],
+              "outOfScope": false,
+              "hasOpenThreats": true,
+              "attrs": {
+                ".element-shape": {
+                  "class": "element-shape hasOpenThreats isInScope"
+                },
+                "text": {
+                  "text": "10.0 请求信息队列"
+                },
+                "#element-shape": {
+                  "class": ""
+                },
+                ".undefined": {
+                  "class": "undefinedhasOpenThreats isInScope"
+                },
+                ".element-text": {
+                  "class": "element-text hasOpenThreats isInScope"
+                }
+              }
+            },
+            {
+              "type": "tm.Process",
+              "size": {
+                "width": 100,
+                "height": 100
+              },
+              "position": {
+                "x": 361,
+                "y": 475
+              },
+              "angle": 0,
+              "id": "3e75b596-9c70-41b6-a2cf-a15899c254d3",
+              "z": 5,
+              "threats": [
+                {
+                  "status": "Open",
+                  "severity": "Medium",
+                  "title": "恶意消息",
+                  "type": "Denial of service",
+                  "description": "攻击者可能生成后台工作程序无法处理的恶意消息",
+                  "mitigation": "实现一个恶意消息队列，其中的消息在经过固定次数的重试后放置",
+                  "$$hashKey": "object:1330"
+                },
+                {
+                  "status": "Open",
+                  "severity": "Medium",
+                  "mitigation": "· 在处理之前验证所有消息的内容\n· 拒绝任何含有无效内容的邮件，并记录拒绝记录\n· 不要记录恶意内容，而是记录错误的描述",
+                  "type": "Denial of service",
+                  "title": "大量访问数据",
+                  "description": "攻击者可能生成大量访问数据，使应用程序拒绝服务",
+                  "$$hashKey": "object:846"
+                }
+              ],
+              "privilegeLevel": "executionContext =Limited",
+              "outOfScope": false,
+              "hasOpenThreats": true,
+              "attrs": {
+                ".element-shape": {
+                  "class": "element-shape hasOpenThreats isInScope"
+                },
+                "text": {
+                  "text": "7.0 隐藏工作进\n程"
+                },
+                "#element-shape": {
+                  "class": ""
+                },
+                "#element-process": {
+                  "class": "outOfScopeElement"
+                },
+                ".undefined": {
+                  "class": "undefinedhasOpenThreats isInScope"
+                },
+                ".element-text": {
+                  "class": "element-text hasOpenThreats isInScope"
+                }
+              }
+            },
+            {
+              "type": "tm.Process",
+              "size": {
+                "width": 100,
+                "height": 100
+              },
+              "position": {
+                "x": 258,
+                "y": 144
+              },
+              "angle": 0,
+              "id": "0d9909ea-1398-4898-be81-cf1c808324dc",
+              "z": 6,
+              "privilegeLevel": "executionContext =Limited",
+              "outOfScope": false,
+              "hasOpenThreats": true,
+              "threats": [
+                {
+                  "status": "Open",
+                  "severity": "Medium",
+                  "modelType": "STRIDE",
+                  "type": "Elevation of privilege",
+                  "title": "由于松散的授权规则，攻击者可能获得对数据库的未授权访问",
+                  "description": "数据库应该确保使用最低特权帐户或了解原则的较高权限连接到数据库服务器",
+                  "mitigation": "确保使用特权最少的帐户连接到数据库服务器",
+                  "$$hashKey": "object:588"
+                },
+                {
+                  "status": "Open",
+                  "severity": "Medium",
+                  "modelType": "STRIDE",
+                  "type": "Elevation of privilege",
+                  "title": "由于缺乏网络访问保护，攻击者可能获得对数据库的未经授权的访问",
+                  "description": "如果在网络或主机防火墙级别上没有访问数据库的限制，那么任何人都可以尝试从未授权的位置连接到数据库",
+                  "mitigation": "为数据库引擎访问配置Windows防火墙，限制只有后台管理员可以访问",
+                  "$$hashKey": "object:1768"
+                }
+              ],
+              "attrs": {
+                ".element-shape": {
+                  "class": "element-shape hasOpenThreats isInScope"
+                },
+                "text": {
+                  "text": "5.0 登录认证"
+                },
+                "#element-process": {
+                  "class": "outOfScopeElement"
+                },
+                ".undefined": {
+                  "class": "undefinedhasNoOpenThreats isInScope"
+                },
+                ".element-text": {
+                  "class": "element-text hasOpenThreats isInScope"
+                }
+              }
+            },
+            {
+              "type": "tm.Actor",
+              "size": {
+                "width": 160,
+                "height": 80
+              },
+              "position": {
+                "x": 12,
+                "y": 74
+              },
+              "angle": 0,
+              "id": "b394f9f7-07ca-42bc-b616-ad77c6fbfcce",
+              "z": 7,
+              "threats": [
+                {
+                  "ruleId": "b2a6d40d-d3f8-4750-8e4d-c02cc84b13dc",
+                  "title": "攻击者欺骗计算机执行用户请求",
+                  "type": "Spoofing",
+                  "modelType": "STRIDE",
+                  "status": "Open",
+                  "severity": "High",
+                  "description": "攻击者进行非法访问，使用另一用户的身份登录支付页面；或破坏服务器，使恶意服务器冒充有效服务器",
+                  "mitigation": "· 考虑使用标准身份验证机制向支付网页进行身份验证\n· 网页必须安全处理失败的身份验证方案\n· 启用升级或自适应的身份验证\n· 确保适当锁定管理界面\n· 安全实施忘记密码功能\n· 确保实施密码和帐户策略\n· 实施控制来防止用户名枚举",
+                  "$$hashKey": "object:1441"
+                },
+                {
+                  "ruleId": "87bc37e2-798e-4d68-bb96-feb1da26da48",
+                  "title": "由于缺乏审计，攻击者可能否认对数据库的操作",
+                  "type": "Repudiation",
+                  "modelType": "STRIDE",
+                  "status": "Open",
+                  "severity": "Medium",
+                  "description": "正确地记录所有安全事件和用户操作，在系统中构建可跟踪性，并否认任何可能的否认问题。如果没有适当的审计和日志控制，就不可能在系统中实现任何责任。",
+                  "mitigation": "确保在SQL Server上启用了登录审核。",
+                  "$$hashKey": "object:102"
+                }
+              ],
+              "outOfScope": false,
+              "hasOpenThreats": true,
+              "attrs": {
+                ".element-shape": {
+                  "class": "element-shape hasOpenThreats isInScope"
+                },
+                "text": {
+                  "text": "1.0 用户"
+                },
+                "#element-shape": {
+                  "class": ""
+                },
+                ".undefined": {
+                  "class": "undefinedhasNoOpenThreats isInScope"
+                },
+                ".element-text": {
+                  "class": "element-text hasOpenThreats isInScope"
+                }
+              }
+            },
+            {
+              "type": "tm.Boundary",
+              "size": {
+                "width": 10,
+                "height": 10
+              },
+              "smooth": true,
+              "source": {
+                "x": 120,
+                "y": 230
+              },
+              "target": {
+                "x": 195,
+                "y": 7
+              },
+              "vertices": [
+                {
+                  "x": 205,
+                  "y": 147
+                }
+              ],
+              "id": "64d52ab0-9733-4ae9-af1b-a347cbc13186",
+              "z": 8,
+              "attrs": {}
+            },
+            {
+              "type": "tm.Boundary",
+              "size": {
+                "width": 10,
+                "height": 10
+              },
+              "smooth": true,
+              "source": {
+                "x": 411,
+                "y": 24
+              },
+              "target": {
+                "x": 446,
+                "y": 223
+              },
+              "vertices": [
+                {
+                  "x": 404,
+                  "y": 173
+                }
+              ],
+              "id": "70a1b898-4131-462f-a26e-1adf9f2b2eda",
+              "z": 9,
+              "attrs": {}
+            },
+            {
+              "type": "tm.Flow",
+              "size": {
+                "width": 10,
+                "height": 10
+              },
+              "smooth": true,
+              "source": {
+                "id": "b82b0b05-c0a3-414b-8b3c-bdc748778fd1"
+              },
+              "target": {
+                "id": "ec574fb4-87e7-494b-88dc-2a3c99172067"
+              },
+              "vertices": [
+                {
+                  "x": 495,
+                  "y": 180
+                }
+              ],
+              "id": "86347588-6629-45e3-a441-09ca11bce894",
+              "labels": [
+                {
+                  "position": {
+                    "distance": 0.4367448298349698,
+                    "offset": -24.051922313906722
+                  },
+                  "attrs": {
+                    "text": {
+                      "text": "加入请求信息",
+                      "font-weight": "400",
+                      "font-size": "small"
+                    }
+                  }
+                }
+              ],
+              "z": 13,
+              "threats": [
+                {
+                  "status": "Open",
+                  "severity": "High",
+                  "description": "这些请求是通过公共Internet发出的，攻击者可能会拦截这些请求",
+                  "title": "数据流应使用HTTP/S",
+                  "type": "Information disclosure",
+                  "mitigation": "请求应该需要HTTP/S，这将提供机密性和完整性。HTTP不应该被支持",
+                  "$$hashKey": "object:816"
+                }
+              ],
+              "outOfScope": false,
+              "hasOpenThreats": true,
+              "attrs": {
+                ".marker-target": {
+                  "class": "marker-target hasOpenThreats isInScope"
+                },
+                ".connection": {
+                  "class": "connection hasOpenThreats isInScope"
+                }
+              }
+            },
+            {
+              "type": "tm.Flow",
+              "size": {
+                "width": 10,
+                "height": 10
+              },
+              "smooth": true,
+              "source": {
+                "id": "ec574fb4-87e7-494b-88dc-2a3c99172067"
+              },
+              "target": {
+                "id": "3e75b596-9c70-41b6-a2cf-a15899c254d3"
+              },
+              "vertices": [
+                {
+                  "x": 404,
+                  "y": 431
+                }
+              ],
+              "id": "4bbf279c-49c7-436d-9afa-e94435e6ec72",
+              "labels": [
+                {
+                  "position": {
+                    "distance": 0.2782275562861224,
+                    "offset": 4.1227838636264815
+                  },
+                  "attrs": {
+                    "text": {
+                      "text": "信息",
+                      "font-weight": "400",
+                      "font-size": "small"
+                    }
+                  }
+                }
+              ],
+              "z": 14,
+              "threats": [
+                {
+                  "status": "Open",
+                  "severity": "High",
+                  "mitigation": "信息传递应该需要HTTP/S。这将提供机密性和完整性。HTTP不应该被支持",
+                  "type": "Information disclosure",
+                  "title": "数据流应该使用 HTTP/S",
+                  "description": "信息是通过公共网络发出的，攻击者可能会拦截这些请求",
+                  "$$hashKey": "object:1169"
+                }
+              ],
+              "outOfScope": false,
+              "hasOpenThreats": true,
+              "attrs": {
+                ".marker-target": {
+                  "class": "marker-target hasOpenThreats isInScope"
+                },
+                ".connection": {
+                  "class": "connection hasOpenThreats isInScope"
+                }
+              }
+            },
+            {
+              "type": "tm.Boundary",
+              "size": {
+                "width": 10,
+                "height": 10
+              },
+              "smooth": true,
+              "source": {
+                "x": 604,
+                "y": 256
+              },
+              "target": {
+                "x": 773,
+                "y": 328
+              },
+              "vertices": [
+                {
+                  "x": 720,
+                  "y": 260
+                }
+              ],
+              "id": "cc656830-4c72-4ede-8f3b-0daeaa399d16",
+              "z": 15,
+              "attrs": {}
+            },
+            {
+              "type": "tm.Flow",
+              "size": {
+                "width": 10,
+                "height": 10
+              },
+              "smooth": true,
+              "source": {
+                "x": 163,
+                "y": 491
+              },
+              "target": {
+                "id": "3e75b596-9c70-41b6-a2cf-a15899c254d3"
+              },
+              "vertices": [
+                {
+                  "x": 263,
+                  "y": 540
+                }
+              ],
+              "id": "75949d2c-0449-4a10-add3-07ac91a0c608",
+              "labels": [
+                {
+                  "position": {
+                    "distance": 0.32694048035260165,
+                    "offset": -0.940779069084877
+                  },
+                  "attrs": {
+                    "text": {
+                      "text": "用户查询结果",
+                      "font-weight": "400",
+                      "font-size": "small"
+                    }
+                  }
+                }
+              ],
+              "z": 17,
+              "threats": [
+                {
+                  "status": "Open",
+                  "severity": "Low",
+                  "title": "中间人攻击",
+                  "type": "Information disclosure",
+                  "mitigation": "在数据库服务器上执行加密连接，使用SSL/TLS保护与事件中心的加密",
+                  "description": "攻击者可以在传输过程中拦截数据库查询并获取敏感信息，如数据库凭证、查询参数或查询结果（可能性较低，因为数据流是通过私有网络进行的）",
+                  "$$hashKey": "object:557"
+                }
+              ],
+              "outOfScope": false,
+              "hasOpenThreats": true,
+              "attrs": {
+                ".marker-target": {
+                  "class": "marker-target hasOpenThreats isInScope"
+                },
+                ".connection": {
+                  "class": "connection hasOpenThreats isInScope"
+                }
+              }
+            },
+            {
+              "type": "tm.Boundary",
+              "size": {
+                "width": 10,
+                "height": 10
+              },
+              "smooth": true,
+              "source": {
+                "x": 124,
+                "y": 330
+              },
+              "target": {
+                "x": 226,
+                "y": 568
+              },
+              "vertices": [
+                {
+                  "x": 310,
+                  "y": 383
+                }
+              ],
+              "id": "a61cbe16-7e3f-400c-a0ea-c0695253c6ad",
+              "z": 18,
+              "attrs": {}
+            },
+            {
+              "type": "tm.Flow",
+              "size": {
+                "width": 10,
+                "height": 10
+              },
+              "smooth": true,
+              "source": {
+                "id": "bdd3e115-4b92-4020-90b7-c3351dba292b"
+              },
+              "target": {
+                "id": "b82b0b05-c0a3-414b-8b3c-bdc748778fd1"
+              },
+              "vertices": [],
+              "id": "c8c746d8-2a26-464e-8524-3350be8dcae5",
+              "labels": [
+                {
+                  "position": {
+                    "distance": 0.23626585261301528,
+                    "offset": -0.24386868851958654
+                  },
+                  "attrs": {
+                    "text": {
+                      "text": "阅读支付系统配置",
+                      "font-weight": "400",
+                      "font-size": "small"
+                    }
+                  }
+                }
+              ],
+              "z": 20,
+              "outOfScope": true,
+              "reasonOutOfScope": "This data flow represents a read from the file system",
+              "hasOpenThreats": false,
+              "attrs": {
+                ".marker-target": {
+                  "class": "marker-target hasNoOpenThreats isInScope"
+                },
+                ".connection": {
+                  "class": "connection hasNoOpenThreats isOutOfScope"
+                }
+              }
+            },
+            {
+              "type": "tm.Flow",
+              "size": {
+                "width": 10,
+                "height": 10
+              },
+              "smooth": true,
+              "source": {
+                "id": "a25bbb4e-093f-4238-a620-31efdee452dc"
+              },
+              "target": {
+                "id": "3e75b596-9c70-41b6-a2cf-a15899c254d3"
+              },
+              "vertices": [],
+              "id": "6cba52e8-0d26-481f-bcc1-dbf0b66d8b42",
+              "labels": [
+                {
+                  "position": {
+                    "distance": 0.32739886445787414,
+                    "offset": -35.15558276780756
+                  },
+                  "attrs": {
+                    "text": {
+                      "text": "阅读用户配置",
+                      "font-weight": "400",
+                      "font-size": "small"
+                    }
+                  }
+                }
+              ],
+              "z": 21,
+              "outOfScope": true,
+              "reasonOutOfScope": "This data flow represents a read from the file system",
+              "hasOpenThreats": false,
+              "attrs": {
+                ".marker-target": {
+                  "class": "marker-target hasNoOpenThreats isInScope"
+                },
+                ".connection": {
+                  "class": "connection hasNoOpenThreats isOutOfScope"
+                }
+              }
+            },
+            {
+              "type": "tm.Flow",
+              "size": {
+                "width": 10,
+                "height": 10
+              },
+              "smooth": true,
+              "source": {
+                "id": "0d9909ea-1398-4898-be81-cf1c808324dc"
+              },
+              "target": {
+                "id": "936557f9-22e2-4bac-bb70-0089c5c2fbe1"
+              },
+              "vertices": [
+                {
+                  "x": 202,
+                  "y": 309
+                }
+              ],
+              "id": "2fd00bd2-c603-4d72-a12f-c20a3a1ba77b",
+              "labels": [
+                {
+                  "position": 0.5,
+                  "attrs": {
+                    "text": {
+                      "text": "查询用户信息",
+                      "font-weight": "400",
+                      "font-size": "small"
+                    }
+                  }
+                }
+              ],
+              "z": 22,
+              "hasOpenThreats": false,
+              "isEncrypted": true,
+              "isPublicNetwork": false,
+              "attrs": {
+                ".marker-target": {
+                  "class": "marker-target hasNoOpenThreats isInScope"
+                },
+                ".connection": {
+                  "class": "connection hasNoOpenThreats isInScope"
+                }
+              }
+            },
+            {
+              "type": "tm.Flow",
+              "size": {
+                "width": 10,
+                "height": 10
+              },
+              "smooth": true,
+              "source": {
+                "id": "936557f9-22e2-4bac-bb70-0089c5c2fbe1"
+              },
+              "target": {
+                "id": "0d9909ea-1398-4898-be81-cf1c808324dc"
+              },
+              "vertices": [
+                {
+                  "x": 309,
+                  "y": 307
+                }
+              ],
+              "id": "d117ddba-2508-45ce-b9ea-fb9df56a79e5",
+              "labels": [
+                {
+                  "position": 0.5,
+                  "attrs": {
+                    "text": {
+                      "text": "用户信息查询结果",
+                      "font-weight": "400",
+                      "font-size": "small"
+                    }
+                  }
+                }
+              ],
+              "z": 23,
+              "hasOpenThreats": false,
+              "isEncrypted": true,
+              "attrs": {
+                ".marker-target": {
+                  "class": "marker-target hasNoOpenThreats isInScope"
+                },
+                ".connection": {
+                  "class": "connection hasNoOpenThreats isInScope"
+                }
+              }
+            },
+            {
+              "type": "tm.Flow",
+              "size": {
+                "width": 10,
+                "height": 10
+              },
+              "smooth": true,
+              "source": {
+                "id": "3e75b596-9c70-41b6-a2cf-a15899c254d3"
+              },
+              "target": {
+                "id": "936557f9-22e2-4bac-bb70-0089c5c2fbe1"
+              },
+              "vertices": [],
+              "id": "015880b7-fb7a-4fe3-b729-fbd40bd7afcb",
+              "labels": [
+                {
+                  "position": 0.5,
+                  "attrs": {
+                    "text": {
+                      "text": "用户查询",
+                      "font-weight": "400",
+                      "font-size": "small"
+                    }
+                  }
+                }
+              ],
+              "z": 24,
+              "hasOpenThreats": false,
+              "attrs": {
+                ".marker-target": {
+                  "class": "marker-target hasNoOpenThreats isInScope"
+                },
+                ".connection": {
+                  "class": "connection hasNoOpenThreats isInScope"
+                }
+              }
+            },
+            {
+              "type": "tm.Process",
+              "size": {
+                "width": 100,
+                "height": 100
+              },
+              "position": {
+                "x": 259,
+                "y": 24
+              },
+              "angle": 0,
+              "id": "905959aa-2064-4ff4-b936-1b6645d056d5",
+              "z": 25,
+              "hasOpenThreats": false,
+              "attrs": {
+                ".element-shape": {
+                  "class": "element-shape hasNoOpenThreats isInScope"
+                },
+                "text": {
+                  "text": "4.0 转账"
+                },
+                ".element-text": {
+                  "class": "element-text hasNoOpenThreats isInScope"
+                }
+              }
+            },
+            {
+              "type": "tm.Flow",
+              "size": {
+                "width": 10,
+                "height": 10
+              },
+              "smooth": true,
+              "source": {
+                "id": "b394f9f7-07ca-42bc-b616-ad77c6fbfcce"
+              },
+              "target": {
+                "id": "905959aa-2064-4ff4-b936-1b6645d056d5"
+              },
+              "vertices": [],
+              "id": "73e3f769-7211-4cf4-81a2-f1d03a9b6e51",
+              "labels": [
+                {
+                  "position": 0.5,
+                  "attrs": {
+                    "text": {
+                      "text": "转账请求",
+                      "font-weight": "400",
+                      "font-size": "small"
+                    }
+                  }
+                }
+              ],
+              "z": 26,
+              "hasOpenThreats": false,
+              "threats": [],
+              "attrs": {
+                ".marker-target": {
+                  "class": "marker-target hasNoOpenThreats isInScope"
+                },
+                ".connection": {
+                  "class": "connection hasNoOpenThreats isInScope"
+                }
+              }
+            },
+            {
+              "type": "tm.Flow",
+              "size": {
+                "width": 10,
+                "height": 10
+              },
+              "smooth": true,
+              "source": {
+                "id": "905959aa-2064-4ff4-b936-1b6645d056d5"
+              },
+              "target": {
+                "id": "b394f9f7-07ca-42bc-b616-ad77c6fbfcce"
+              },
+              "vertices": [
+                {
+                  "x": 192,
+                  "y": 61
+                }
+              ],
+              "id": "edd822f5-0088-439a-ad8b-9dee9a15b6fd",
+              "labels": [
+                {
+                  "position": {
+                    "distance": 0.48282935136148325,
+                    "offset": 2.60533908753915
+                  },
+                  "attrs": {
+                    "text": {
+                      "text": "转账确认",
+                      "font-weight": "400",
+                      "font-size": "small"
+                    }
+                  }
+                }
+              ],
+              "z": 27,
+              "hasOpenThreats": false,
+              "attrs": {
+                ".marker-target": {
+                  "class": "marker-target hasNoOpenThreats isInScope"
+                },
+                ".connection": {
+                  "class": "connection hasNoOpenThreats isInScope"
+                }
+              }
+            },
+            {
+              "type": "tm.Flow",
+              "size": {
+                "width": 10,
+                "height": 10
+              },
+              "smooth": true,
+              "source": {
+                "id": "b394f9f7-07ca-42bc-b616-ad77c6fbfcce"
+              },
+              "target": {
+                "id": "0d9909ea-1398-4898-be81-cf1c808324dc"
+              },
+              "vertices": [
+                {
+                  "x": 182,
+                  "y": 140
+                }
+              ],
+              "id": "2e340b02-6597-483b-8600-68b84376c896",
+              "labels": [
+                {
+                  "position": 0.5,
+                  "attrs": {
+                    "text": {
+                      "text": "登录请求",
+                      "font-weight": "400",
+                      "font-size": "small"
+                    }
+                  }
+                }
+              ],
+              "z": 28,
+              "hasOpenThreats": false,
+              "attrs": {
+                ".marker-target": {
+                  "class": "marker-target hasNoOpenThreats isInScope"
+                },
+                ".connection": {
+                  "class": "connection hasNoOpenThreats isInScope"
+                }
+              }
+            },
+            {
+              "type": "tm.Flow",
+              "size": {
+                "width": 10,
+                "height": 10
+              },
+              "smooth": true,
+              "source": {
+                "id": "0d9909ea-1398-4898-be81-cf1c808324dc"
+              },
+              "target": {
+                "id": "b394f9f7-07ca-42bc-b616-ad77c6fbfcce"
+              },
+              "vertices": [
+                {
+                  "x": 170,
+                  "y": 210
+                }
+              ],
+              "id": "63552ce2-8b76-4aef-af9b-d0c44615f965",
+              "labels": [
+                {
+                  "position": {
+                    "distance": 0.5179873808104114,
+                    "offset": 0.27449226786010955
+                  },
+                  "attrs": {
+                    "text": {
+                      "text": "登录回应",
+                      "font-weight": "400",
+                      "font-size": "small"
+                    }
+                  }
+                }
+              ],
+              "z": 29,
+              "hasOpenThreats": false,
+              "attrs": {
+                ".marker-target": {
+                  "class": "marker-target hasNoOpenThreats isInScope"
+                },
+                ".connection": {
+                  "class": "connection hasNoOpenThreats isInScope"
+                }
+              }
+            },
+            {
+              "type": "tm.Actor",
+              "size": {
+                "width": 160,
+                "height": 80
+              },
+              "position": {
+                "x": 467,
+                "y": 46
+              },
+              "angle": 0,
+              "id": "b82b0b05-c0a3-414b-8b3c-bdc748778fd1",
+              "z": 30,
+              "hasOpenThreats": false,
+              "attrs": {
+                ".element-shape": {
+                  "class": "element-shape hasNoOpenThreats isInScope"
+                },
+                "text": {
+                  "text": "2.0 支付系统服务器"
+                },
+                ".element-text": {
+                  "class": "element-text hasNoOpenThreats isInScope"
+                }
+              }
+            },
+            {
+              "type": "tm.Flow",
+              "size": {
+                "width": 10,
+                "height": 10
+              },
+              "smooth": true,
+              "source": {
+                "id": "0d9909ea-1398-4898-be81-cf1c808324dc"
+              },
+              "target": {
+                "id": "b82b0b05-c0a3-414b-8b3c-bdc748778fd1"
+              },
+              "vertices": [
+                {
+                  "x": 398,
+                  "y": 170
+                }
+              ],
+              "id": "e0789587-2147-4b59-aa5f-a75620d069d9",
+              "labels": [
+                {
+                  "position": {
+                    "distance": 0.3990519783412198,
+                    "offset": -3.1994819261939087
+                  },
+                  "attrs": {
+                    "text": {
+                      "text": "登录请求",
+                      "font-weight": "400",
+                      "font-size": "small"
+                    }
+                  }
+                }
+              ],
+              "z": 31,
+              "hasOpenThreats": false,
+              "attrs": {
+                ".marker-target": {
+                  "class": "marker-target hasNoOpenThreats isInScope"
+                },
+                ".connection": {
+                  "class": "connection hasNoOpenThreats isInScope"
+                }
+              }
+            },
+            {
+              "type": "tm.Flow",
+              "size": {
+                "width": 10,
+                "height": 10
+              },
+              "smooth": true,
+              "source": {
+                "id": "905959aa-2064-4ff4-b936-1b6645d056d5"
+              },
+              "target": {
+                "id": "b82b0b05-c0a3-414b-8b3c-bdc748778fd1"
+              },
+              "vertices": [
+                {
+                  "x": 382,
+                  "y": 124
+                }
+              ],
+              "id": "25887136-8e47-479f-8d02-0680da7df469",
+              "labels": [
+                {
+                  "position": {
+                    "distance": 0.39414559008447003,
+                    "offset": -1.2133224034920271
+                  },
+                  "attrs": {
+                    "text": {
+                      "text": "转账请求",
+                      "font-weight": "400",
+                      "font-size": "small"
+                    }
+                  }
+                }
+              ],
+              "z": 33,
+              "hasOpenThreats": false,
+              "attrs": {
+                ".marker-target": {
+                  "class": "marker-target hasNoOpenThreats isInScope"
+                },
+                ".connection": {
+                  "class": "connection hasNoOpenThreats isInScope"
+                }
+              }
+            },
+            {
+              "type": "tm.Flow",
+              "size": {
+                "width": 10,
+                "height": 10
+              },
+              "smooth": true,
+              "source": {
+                "id": "b82b0b05-c0a3-414b-8b3c-bdc748778fd1"
+              },
+              "target": {
+                "id": "905959aa-2064-4ff4-b936-1b6645d056d5"
+              },
+              "vertices": [
+                {
+                  "x": 435,
+                  "y": 73
+                }
+              ],
+              "id": "3f15ad05-2d17-4853-8bc9-0f6bb081c8e2",
+              "labels": [
+                {
+                  "position": {
+                    "distance": 0.4573256410950736,
+                    "offset": 1.2257118446056354
+                  },
+                  "attrs": {
+                    "text": {
+                      "text": "转账确认",
+                      "font-weight": "400",
+                      "font-size": "small"
+                    }
+                  }
+                }
+              ],
+              "z": 34,
+              "hasOpenThreats": false,
+              "attrs": {
+                ".marker-target": {
+                  "class": "marker-target hasNoOpenThreats isInScope"
+                },
+                ".connection": {
+                  "class": "connection hasNoOpenThreats isInScope"
+                }
+              }
+            },
+            {
+              "type": "tm.Flow",
+              "size": {
+                "width": 10,
+                "height": 10
+              },
+              "smooth": true,
+              "source": {
+                "id": "b82b0b05-c0a3-414b-8b3c-bdc748778fd1"
+              },
+              "target": {
+                "id": "0d9909ea-1398-4898-be81-cf1c808324dc"
+              },
+              "vertices": [
+                {
+                  "x": 434,
+                  "y": 191
+                }
+              ],
+              "id": "18ec6e94-8d49-4251-81d7-ae8ad6270611",
+              "labels": [
+                {
+                  "position": {
+                    "distance": 0.574897599277214,
+                    "offset": -0.655633799463784
+                  },
+                  "attrs": {
+                    "text": {
+                      "text": "登录回应",
+                      "font-weight": "400",
+                      "font-size": "small"
+                    }
+                  }
+                }
+              ],
+              "z": 35,
+              "hasOpenThreats": false,
+              "attrs": {
+                ".marker-target": {
+                  "class": "marker-target hasNoOpenThreats isInScope"
+                },
+                ".connection": {
+                  "class": "connection hasNoOpenThreats isInScope"
+                }
+              }
+            },
+            {
+              "type": "tm.Actor",
+              "size": {
+                "width": 160,
+                "height": 80
+              },
+              "position": {
+                "x": 554,
+                "y": 285
+              },
+              "angle": 0,
+              "id": "e22cfe89-eacf-4c88-9eb3-f90422552fb6",
+              "z": 36,
+              "hasOpenThreats": false,
+              "attrs": {
+                ".element-shape": {
+                  "class": "element-shape hasNoOpenThreats isInScope"
+                },
+                "text": {
+                  "text": "3.0 商家"
+                },
+                ".element-text": {
+                  "class": "element-text hasNoOpenThreats isInScope"
+                }
+              }
+            },
+            {
+              "type": "tm.Process",
+              "size": {
+                "width": 100,
+                "height": 100
+              },
+              "position": {
+                "x": 698,
+                "y": 120
+              },
+              "angle": 0,
+              "id": "e79f5e7c-8935-4307-87bb-07d355c2a2b2",
+              "z": 37,
+              "hasOpenThreats": true,
+              "threats": [
+                {
+                  "status": "Open",
+                  "severity": "Medium",
+                  "modelType": "STRIDE",
+                  "type": "Repudiation",
+                  "title": "商家否认已支付",
+                  "description": "由于缺乏审计，商家否认用户已支付账单",
+                  "mitigation": "· 正确地记录所有安全事件和用户操作，在系统中构建可跟踪性，并否认任何可能的否认问题。\n· 使用数字签名确保信息真实性的有效证明\n· 使用时间戳记录支付时间，确保不可抵赖",
+                  "$$hashKey": "object:94"
+                }
+              ],
+              "attrs": {
+                ".element-shape": {
+                  "class": "element-shape hasOpenThreats isInScope"
+                },
+                "text": {
+                  "text": "6.0 交易"
+                },
+                ".element-text": {
+                  "class": "element-text hasOpenThreats isInScope"
+                }
+              }
+            },
+            {
+              "type": "tm.Flow",
+              "size": {
+                "width": 10,
+                "height": 10
+              },
+              "smooth": true,
+              "source": {
+                "id": "b82b0b05-c0a3-414b-8b3c-bdc748778fd1"
+              },
+              "target": {
+                "id": "e79f5e7c-8935-4307-87bb-07d355c2a2b2"
+              },
+              "vertices": [],
+              "id": "556fa41e-4bbd-45b4-9627-58e827a5a477",
+              "labels": [
+                {
+                  "position": {
+                    "distance": 0.4452678690626975,
+                    "offset": -2.996175766362543
+                  },
+                  "attrs": {
+                    "text": {
+                      "text": "交易请求",
+                      "font-weight": "400",
+                      "font-size": "small"
+                    }
+                  }
+                }
+              ],
+              "z": 38,
+              "hasOpenThreats": false,
+              "attrs": {
+                ".marker-target": {
+                  "class": "marker-target hasNoOpenThreats isInScope"
+                },
+                ".connection": {
+                  "class": "connection hasNoOpenThreats isInScope"
+                }
+              }
+            },
+            {
+              "type": "tm.Flow",
+              "size": {
+                "width": 10,
+                "height": 10
+              },
+              "smooth": true,
+              "source": {
+                "id": "e79f5e7c-8935-4307-87bb-07d355c2a2b2"
+              },
+              "target": {
+                "id": "b82b0b05-c0a3-414b-8b3c-bdc748778fd1"
+              },
+              "vertices": [
+                {
+                  "x": 633,
+                  "y": 178
+                }
+              ],
+              "id": "048bcb08-8468-4da3-a54c-69b52250d81b",
+              "labels": [
+                {
+                  "position": {
+                    "distance": 0.48345709273572324,
+                    "offset": -1.2121582823210768
+                  },
+                  "attrs": {
+                    "text": {
+                      "text": "交易确认",
+                      "font-weight": "400",
+                      "font-size": "small"
+                    }
+                  }
+                }
+              ],
+              "z": 39,
+              "hasOpenThreats": false,
+              "attrs": {
+                ".marker-target": {
+                  "class": "marker-target hasNoOpenThreats isInScope"
+                },
+                ".connection": {
+                  "class": "connection hasNoOpenThreats isInScope"
+                }
+              }
+            },
+            {
+              "type": "tm.Flow",
+              "size": {
+                "width": 10,
+                "height": 10
+              },
+              "smooth": true,
+              "source": {
+                "id": "e79f5e7c-8935-4307-87bb-07d355c2a2b2"
+              },
+              "target": {
+                "id": "e22cfe89-eacf-4c88-9eb3-f90422552fb6"
+              },
+              "vertices": [],
+              "id": "ab8a7a08-a59a-4782-aafb-f6ce3314cecf",
+              "labels": [
+                {
+                  "position": 0.5,
+                  "attrs": {
+                    "text": {
+                      "text": "确认订单",
+                      "font-weight": "400",
+                      "font-size": "small"
+                    }
+                  }
+                }
+              ],
+              "z": 40,
+              "hasOpenThreats": false,
+              "attrs": {
+                ".marker-target": {
+                  "class": "marker-target hasNoOpenThreats isInScope"
+                },
+                ".connection": {
+                  "class": "connection hasNoOpenThreats isInScope"
+                }
+              }
+            },
+            {
+              "type": "tm.Flow",
+              "size": {
+                "width": 10,
+                "height": 10
+              },
+              "smooth": true,
+              "source": {
+                "id": "e22cfe89-eacf-4c88-9eb3-f90422552fb6"
+              },
+              "target": {
+                "id": "e79f5e7c-8935-4307-87bb-07d355c2a2b2"
+              },
+              "vertices": [
+                {
+                  "x": 740,
+                  "y": 280
+                }
+              ],
+              "id": "dab59ea1-3610-4997-8039-018c0726fca8",
+              "labels": [
+                {
+                  "position": {
+                    "distance": 0.5719783537478109,
+                    "offset": -3.9338789866239154
+                  },
+                  "attrs": {
+                    "text": {
+                      "text": "确认请求",
+                      "font-weight": "400",
+                      "font-size": "small"
+                    }
+                  }
+                }
+              ],
+              "z": 41,
+              "hasOpenThreats": false,
+              "attrs": {
+                ".marker-target": {
+                  "class": "marker-target hasNoOpenThreats isInScope"
+                },
+                ".connection": {
+                  "class": "connection hasNoOpenThreats isInScope"
+                }
+              }
+            },
+            {
+              "type": "tm.Boundary",
+              "size": {
+                "width": 10,
+                "height": 10
+              },
+              "smooth": true,
+              "source": {
+                "x": 410,
+                "y": 263
+              },
+              "target": {
+                "x": 533,
+                "y": 255
+              },
+              "vertices": [
+                {
+                  "x": 478,
+                  "y": 237
+                }
+              ],
+              "id": "bd7456ad-c803-4cdb-a41c-519e80cc78a3",
+              "z": 42,
+              "attrs": {}
+            },
+            {
+              "type": "tm.Boundary",
+              "size": {
+                "width": 10,
+                "height": 10
+              },
+              "smooth": true,
+              "source": {
+                "x": 347,
+                "y": 446
+              },
+              "target": {
+                "x": 490,
+                "y": 446
+              },
+              "vertices": [
+                {
+                  "x": 422,
+                  "y": 423
+                }
+              ],
+              "id": "beb63e62-4ca0-45ea-b635-6cb7645ab2c5",
+              "z": 43,
+              "attrs": {}
+            }
+          ]
+        },
+        "size": {
+          "height": 1480,
+          "width": 3359
+        },
+        "$$hashKey": "object:15",
+        "diagramType": "STRIDE"
+      }
+    ],
+    "reviewer": ""
+  }
+}
